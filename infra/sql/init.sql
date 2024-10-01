@@ -30,7 +30,7 @@ FOREIGN KEY (id_cliente) REFERENCES Cliente (id_cliente)
 
 SELECT * FROM pedido_venda;
 
-INSERT INTO cliente (nome, cpf, telefone); VALUES
+INSERT INTO cliente (nome, cpf, telefone) VALUES
 
 ('Maria Silva','65434567988', '9999-1234'),
 ('João Souza', '77439299912', '9999-5678'),
