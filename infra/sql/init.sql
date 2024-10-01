@@ -45,7 +45,7 @@ INSERT INTO Carro (marca, modelo, ano, cor) VALUES
 ('Honda', 'Civic', '2019', 'Preto'),
 ('Ford', 'Focus', '2018', 'Branco'),
 ('Chevrolet', 'Cruze', '2021', 'Azul'),
-('Volkswagen', 'Golf', '2022', 'Vermelho'),
+('Volkswagen', 'Golf', '2022', 'Vermelho')
 
 
 INSERT INTO pedido_venda (id_carro, id_cliente, data_pedido, valor_pedido) VALUES
@@ -53,7 +53,7 @@ INSERT INTO pedido_venda (id_carro, id_cliente, data_pedido, valor_pedido) VALUE
 (2, 2, '2024-09-29','45000.00'),
 (3, 3, '2024-09-28', '25000.00'),
 (4, 4, '2024-09-27', '38000.00'),
-(5, 5, '2024-09-26', '52000.00'),
+(5, 5, '2024-09-26', '52000.00')
 
 
 
