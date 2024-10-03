@@ -1,7 +1,7 @@
 export class PedidoVenda {
 
     /* Atributos */
-    private idPedido: number;
+    private idPedido: number = 0;
     private idCarro: number;
     private idCliente: number;
     private dataPedido: Date;
@@ -9,20 +9,17 @@ export class PedidoVenda {
 
     /**
      * Construtor da classe PedidoVenda
-     * @param idPedido - O identificador do pedido
      * @param idCarro - O identificador do carro
      * @param idCliente - O identificador do cliente
      * @param dataPedido - A data do pedido
      * @param valorPedido - O valor total do pedido
      */
     constructor(
-        idPedido: number,
         idCarro: number,
         idCliente: number,
         dataPedido: Date,
         valorPedido: number
     ) {
-        this.idPedido = idPedido;
         this.idCarro = idCarro;
         this.idCliente = idCliente;
         this.dataPedido = dataPedido;
