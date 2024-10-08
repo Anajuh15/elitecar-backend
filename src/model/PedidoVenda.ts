@@ -1,4 +1,7 @@
 export class PedidoVenda {
+    static listarPedidosVenda() {
+        throw new Error('Method not implemented.');
+    }
 
     /* Atributos */
     private idPedido: number = 0;

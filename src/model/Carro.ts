@@ -14,6 +14,7 @@ export class Carro {
     private ano: number;
     /* cor do carro */
     private cor: string;
+    static listarCarros: any;
 
     /**
      * Construtor da classe Carro

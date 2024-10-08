@@ -2,6 +2,9 @@
  * Classe que representa o cliente
  */
 export class Cliente {
+    static listarClientes() {
+        throw new Error('Method not implemented.');
+    }
 
     /* Atributos */
     /* Identificador do Cliente */
