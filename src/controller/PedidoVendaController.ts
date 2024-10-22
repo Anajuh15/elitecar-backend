@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
 import { PedidoVenda } from "../model/PedidoVenda";
 
+interface PedidoDTO {
+    idPedido: number;
+    idCarro: number;
+    idCliente: number;
+    dataPedido: Date;
+    valorPedido: number;
+}
 /**
  * A classe `PedidoVendaController` estende a classe `PedidoVenda` e é responsável por controlar as requisições relacionadas aos pedidos de venda.
  * 
@@ -24,6 +31,39 @@ export class PedidoVendaController extends PedidoVenda {
         } catch (error) {
             console.log('Erro ao acessar listagem de carros');
             return res.status(400).json({ mensagem: "Não foi possível acessar a listagem de carros" });
+        }
+    }
+
+    static async novo(req: Request, res: Response): Promise<Response> {
+        try {
+            // recuperando informações do corpo da requisição e colocando em um objeto da interface CarroDTO
+            const pedidoVendaRecebido: PedidoDTO = req.body;
+
+            // instanciando um objeto do tipo carro com as informações recebidas
+            const novoPedido = new PedidoVenda(pedidoVendaRecebido.idCarro, 
+                                        pedidoVendaRecebido.idCliente, 
+                                        pedidoVendaRecebido.dataPedido,
+                                        pedidoVendaRecebido.valorPedido
+                                       );
+
+            // Chama a função de cadastro passando o objeto como parâmetro
+            const repostaClasse = await PedidoVenda.cadastroPedidoVenda(novoPedido);
+
+            // verifica a resposta da função
+            if(repostaClasse) {
+                // retornar uma mensagem de sucesso
+                return res.status(200).json({ mensagem: "Pedido cadastrado com sucesso!" });
+            } else {
+                // retorno uma mensagem de erro
+                return res.status(400).json({ mensagem: "Erro ao cadastra o pedido. Entre em contato com o administrador do sistema."})
+            }
+            
+        } catch (error) {
+            // lança uma mensagem de erro no console
+            console.log(`Erro ao cadastrar um pedido. ${error}`);
+
+            // retorna uma mensagem de erro há quem chamou a mensagem
+            return res.status(400).json({ mensagem: "Não foi possível cadastrar o pedido. Entre em contato com o administrador do sistema." });
         }
     }
 }

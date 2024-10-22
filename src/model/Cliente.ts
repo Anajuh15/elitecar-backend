@@ -137,12 +137,59 @@ export class Cliente {
 
                 listaDeClientes.push(novoCliente);
             });
-            
+
             return listaDeClientes;
         } catch (error) {
-            console.log('Erro ao buscar lista de carros');
+            console.log('Erro ao buscar lista de clientes');
             return null;
         }
     }
-}
 
+    /**
+     * Realiza o cadastro de um carro no banco de dados.
+     * 
+     * Esta função recebe um objeto do tipo `Carro` e insere seus dados (marca, modelo, ano e cor)
+     * na tabela `carro` do banco de dados. O método retorna um valor booleano indicando se o cadastro 
+     * foi realizado com sucesso.
+     * 
+     * @param {Cliente} cliente- Objeto contendo os dados do carro que será cadastrado. O objeto `Carro`
+     *                        deve conter os métodos `getMarca()`, `getModelo()`, `getAno()` e `getCor()`
+     *                        que retornam os respectivos valores do carro.
+     * @returns {Promise<boolean>} - Retorna `true` se o carro foi cadastrado com sucesso e `false` caso contrário.
+     *                               Em caso de erro durante o processo, a função trata o erro e retorna `false`.
+     * 
+     * @throws {Error} - Se ocorrer algum erro durante a execução do cadastro, uma mensagem de erro é exibida
+     *                   no console junto com os detalhes do erro.
+     */
+    static async cadastroCliente(cliente: Cliente): Promise<boolean> {
+        try {
+            //query para fazer insert de um carro no banco de dados
+            const queryInsertCliente = `INSERT INTO cliente (nome, cpf, telefone)
+                                     VALUES
+                                     ('${cliente.getNome()}',
+                                     ${cliente.getCpf()},
+                                     ${cliente.getTelefone()})
+                                    RETURNING id_cliente;`;
+            // executa a query no banco e armazena a resposta
+            const respostaBD = await database.query(queryInsertCliente);
+
+            // verifica se a quantidade de linhas modificadas é diferente de 0
+            if (respostaBD.rowCount != 0) {
+                console.log(`Cliente cadastrado com sucesso! ID do cliente: ${respostaBD.rows[0].id_cliente}`);
+                // true significa que o cadastro foi feito
+                return true;
+            }
+            // false significa que o cadastro NÃO foi feito.
+            return false;
+        }
+        // tratando o erro
+        catch (error: any) {
+            // imprime outra mensagem junto com o erro
+            console.log('Erro ao cadastrar cliente. Verifique os logs para mais detalhe.');
+            // imprime o erro no console
+            console.log(error);
+            // retorno um valor falso
+            return false;
+        }
+    }
+}
